@@ -10,9 +10,11 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Get the API token from the .env file
 TOKEN = os.getenv("TOKEN")
 GRAPH_ID = "graph1"
 
+# Create the main window
 root = Tk()
 root.title("Python Journey")
 root.resizable(width=False, height=False)
@@ -22,10 +24,12 @@ TODAY = dt.now()
 
 
 def open_browser():
+    # Open the user's progress graph in the web browser
     webbrowser.open(URL, new=1)
 
 
 def format_date():
+    # Format the date selected in the calendar to the Pixela format
     cal.config(date_pattern="yyyyMMdd")
     date = cal.get_date()
     cal.config(date_pattern="dd/MM/yyyy")
@@ -33,6 +37,7 @@ def format_date():
 
 
 def add_pixel():
+    # Add a new pixel to the user's graph
     endpoint = "https://pixe.la/v1/users/emichin/graphs/graph1/"
     pixel_add = {
         "date": format_date(),
@@ -45,12 +50,14 @@ def add_pixel():
 
 
 def del_pixel():
+    # Delete a pixel from the user's graph
     endpoint = f"https://pixe.la/v1/users/emichin/graphs/graph1/{format_date()}"
     requests.delete(url=endpoint, headers=headers)
     messagebox.showinfo(message="Pixel deleted.")
 
 
 def change_pixel():
+    # Update an existing pixel on the user's graph
     endpoint = f"https://pixe.la/v1/users/emichin/graphs/graph1/{format_date()}"
     pixel_update = {
         "quantity": user_in.get(),
@@ -60,6 +67,7 @@ def change_pixel():
     messagebox.showinfo(message="Pixel updated.")
 
 
+# Create the calendar widget
 cal = Calendar(root, selectmode="day", year=TODAY.year, month=TODAY.month, day=TODAY.day)
 cal.grid(row=0, column=0, columnspan=4)
 units = Label(text="Minutes/Day:")
@@ -68,11 +76,12 @@ user_in = Entry(width=10)
 user_in.grid(row=1, column=2, sticky="w")
 
 
-
+# Set the headers for the API requests
 headers = {
     "X-USER-TOKEN": TOKEN
 }
 
+# Create the buttons
 add = Button(text="Add", command=add_pixel)
 add.grid(row=2, column=0, pady=10)
 update = Button(text="Update", command=change_pixel)
@@ -82,6 +91,5 @@ delete.grid(row=2, column=2, pady=10, sticky="w")
 link = Button(text="Show\nJourney", command=open_browser)
 link.grid(row=2, column=3)
 
+# Run the main loop
 root.mainloop()
-
-
