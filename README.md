@@ -23,21 +23,21 @@ git clone https://github.com/your-username/python-journey.git
 
     Navigate to the project directory:
 
-cd python-journey
+    cd python-journey
 
-    Create a .env file in the project directory and add your Pixela API token:
+Create a .env file in the project directory and add your Pixela API token:
 
-TOKEN=your_pixela_api_token
+    TOKEN=your_pixela_api_token
 
-    Install the required dependencies:
+Install the required dependencies
 
-pip install -r requirements.txt
+
 
 Usage
 
-    Run the application:
+Run the application:
 
-python main.py
+    python habit-tracker.py
 
     Use the calendar to select the date and enter the number of minutes spent on Python that day.
     Click the "Add", "Update", or "Delete" button to manage your progress.
